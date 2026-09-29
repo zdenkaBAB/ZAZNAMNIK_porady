@@ -1,4 +1,4 @@
-# Meeting Manual v0.9.1
+# Meeting Manual v0.9.2
 
 Android app for long meeting recording, local transcription, structured manual creation and Word export.
 
@@ -15,4 +15,4 @@ First model download is large (~640 MB). A resumable downloader is used and the 
 GitHub Actions builds the debug APK using the existing workflow.
 
 
-Build note v0.9.1: fixed Sherpa-ONNX Kotlin acceptWaveform argument order and removed the obsolete WhisperTranscriber source.
+Build note v0.9.2: fixed Sherpa-ONNX Kotlin acceptWaveform argument order and removed the obsolete WhisperTranscriber source.
