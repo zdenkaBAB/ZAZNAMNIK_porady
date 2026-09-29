@@ -10,9 +10,9 @@
         <TextView android:id="@+id/batteryStatus" android:textSize="14sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
         <TextView android:text="Lokálny prepis Whisper" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
         <TextView android:id="@+id/whisperStatus" android:textSize="14sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <Button android:id="@+id/whisperDownload" android:text="🧠  Pripraviť Whisper model (~142 MB)" android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <Button android:id="@+id/whisperDownload" android:text="🧠  Pripraviť Whisper model (~182 MB)" android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
         <TextView android:text="Úložisko a súkromie" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
         <TextView android:id="@+id/storageInfo" android:textSize="15sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <TextView android:text="Verzia aplikácie: 0.6.0" android:textSize="14sp" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:text="Verzia aplikácie: 0.7.1" android:textSize="14sp" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

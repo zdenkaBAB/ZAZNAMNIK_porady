@@ -34,7 +34,7 @@ public class SettingsActivity extends Activity {
         batteryStatus.setText(isIgnoringBattery()?"✅ Batéria: bez obmedzení – nahrávanie na pozadí má povolenie.":"⚠️ Batéria: môže byť optimalizovaná – pri dlhom nahrávaní odporúčame povoliť bez obmedzení.");
     }
     private void updateWhisperStatus(){
-        if(whisperStatus!=null) whisperStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Whisper Small Q5 model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 182 MB.");
+        if(whisperStatus!=null) whisperStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Whisper Small Q5 model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 182 MB. Sťahovanie sa pri prerušení pokúsi pokračovať.");
     }
     private void downloadWhisper(){
         if(ModelDownloader.isInstalled(this)){ Toast.makeText(this,"Whisper model už je pripravený.",Toast.LENGTH_SHORT).show(); return; }
