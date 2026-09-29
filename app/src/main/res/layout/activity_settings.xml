@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:padding="24dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <Button android:id="@+id/settingsBack" android:text="‹ Späť" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:text="Nastavenia" android:textSize="24sp" android:textStyle="bold" android:layout_marginStart="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <CheckBox android:id="@+id/keepScreen" android:text="Ponechať obrazovku zapnutú počas nahrávania" android:layout_marginTop="24dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <Button android:id="@+id/batteryOptimization" android:text="🔋  Povoliť neobmedzenú batériu pre nahrávanie" android:layout_marginTop="18dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/batteryStatus" android:textSize="14sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:text="Lokálny prepis – Parakeet TDT v3" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/parakeetStatus" android:textSize="14sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <Button android:id="@+id/parakeetDownload" android:text="🧠  Pripraviť Parakeet model (~640 MB)" android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:text="Úložisko a súkromie" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/storageInfo" android:textSize="15sp" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:text="Verzia aplikácie: 0.7.1" android:textSize="14sp" android:layout_marginTop="28dp" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>
