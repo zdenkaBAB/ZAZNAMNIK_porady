@@ -34,14 +34,14 @@ public class SettingsActivity extends Activity {
         batteryStatus.setText(isIgnoringBattery()?"✅ Batéria: bez obmedzení – nahrávanie na pozadí má povolenie.":"⚠️ Batéria: môže byť optimalizovaná – pri dlhom nahrávaní odporúčame povoliť bez obmedzení.");
     }
     private void updateWhisperStatus(){
-        if(whisperStatus!=null) whisperStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Whisper base model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 142 MB.");
+        if(whisperStatus!=null) whisperStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Whisper Small Q5 model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 182 MB.");
     }
     private void downloadWhisper(){
         if(ModelDownloader.isInstalled(this)){ Toast.makeText(this,"Whisper model už je pripravený.",Toast.LENGTH_SHORT).show(); return; }
-        whisperStatus.setText("Sťahujem Whisper model…");
+        whisperStatus.setText("Sťahujem Whisper Small Q5 model…");
         ModelDownloader.download(this,new ModelDownloader.Callback(){
-            public void onProgress(int p,long d,long t){ whisperStatus.setText(p>=0?"Sťahujem Whisper model: "+p+" %":"Sťahujem Whisper model…"); }
-            public void onSuccess(java.io.File f){ updateWhisperStatus(); Toast.makeText(SettingsActivity.this,"Whisper model je pripravený.",Toast.LENGTH_LONG).show(); }
+            public void onProgress(int p,long d,long t){ whisperStatus.setText(p>=0?"Sťahujem Whisper Small Q5 model: "+p+" %":"Sťahujem Whisper Small Q5 model…"); }
+            public void onSuccess(java.io.File f){ updateWhisperStatus(); Toast.makeText(SettingsActivity.this,"Whisper Small Q5 model je pripravený.",Toast.LENGTH_LONG).show(); }
             public void onError(String e){ whisperStatus.setText("Sťahovanie zlyhalo: "+e); }
         });
     }

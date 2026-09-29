@@ -6,10 +6,10 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/** Downloads the multilingual Whisper base model once; audio is never uploaded. */
+/** Downloads the multilingual Whisper small quantized model once; audio is never uploaded. */
 public final class ModelDownloader {
-    public static final String MODEL_NAME = "ggml-base.bin";
-    private static final String MODEL_URL = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin?download=true";
+    public static final String MODEL_NAME = "ggml-small-q5_1.bin";
+    private static final String MODEL_URL = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin?download=true";
     private ModelDownloader() {}
 
     public interface Callback {
@@ -26,7 +26,7 @@ public final class ModelDownloader {
 
     public static boolean isInstalled(android.content.Context c) {
         File f = modelFile(c);
-        return f.exists() && f.length() > 100_000_000L;
+        return f.exists() && f.length() > 150_000_000L;
     }
 
     public static void download(android.content.Context c, Callback callback) {
@@ -40,7 +40,7 @@ public final class ModelDownloader {
                 conn.setConnectTimeout(20000);
                 conn.setReadTimeout(60000);
                 conn.setInstanceFollowRedirects(true);
-                conn.setRequestProperty("User-Agent", "MeetingManual/0.6");
+                conn.setRequestProperty("User-Agent", "MeetingManual/0.7");
                 int code = conn.getResponseCode();
                 if (code < 200 || code >= 300) throw new IOException("HTTP " + code);
                 long total = conn.getContentLengthLong();

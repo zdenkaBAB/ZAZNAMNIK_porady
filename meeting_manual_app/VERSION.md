@@ -1,14 +1,13 @@
-# Meeting Manual v0.6.0
+# Meeting Manual v0.7.0
 
 ## What is new
-- Real on-device Whisper transcription using the prebuilt whisper.cpp Android AAR.
-- Multilingual `ggml-base.bin` model (Slovak and English supported).
-- First-run model download (~142 MB); the meeting audio is never uploaded.
-- Timestamped transcript segments.
-- Optional on-device Slovak/English translation with ML Kit.
-- 16 kHz mono WAV recording so the local Whisper engine can process the recording directly.
-- Long-running foreground recording remains compatible with screen lock and pause/resume.
-- Whisper model status and manual download button in Settings.
+- Upgraded the default local Whisper model from base to multilingual small-q5_1 for better Slovak speech recognition.
+- Model download is approximately 182 MB.
+- Meeting audio remains local and is never uploaded for transcription.
+- Existing recording, pause/resume, archive, translation and Word export remain unchanged.
+
+## Why
+The previous base model is relatively small (142 MiB / 74M parameters) and can produce poor results on longer Slovak meetings, especially with noise or multiple speakers. The small model has 244M parameters; the q5_1 quantized file is about 182 MiB, providing a better accuracy/memory trade-off for Android.
 
 ## Important
-The Whisper base model is intentionally not stored in Git because it is ~142 MB. The app downloads it once to private app storage. After that, transcription can run offline.
+The new model is downloaded separately from the previous base model. After the first download, transcription can run locally/offline.
