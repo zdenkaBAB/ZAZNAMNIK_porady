@@ -94,7 +94,7 @@ public final class ModelDownloader {
                         }
                     }
                 } finally { conn.disconnect(); }
-                if (target.length() < 500_000_000L) throw new IOException("Stiahnutý súbor je príliš malý: " + target.length());
+                if (target.length() < 400_000_000L) throw new IOException("Stiahnutý súbor je príliš malý: " + target.length());
                 return;
             } catch (Exception e) {
                 lastError = e;
@@ -111,7 +111,7 @@ public final class ModelDownloader {
         if (!tempDir.mkdirs()) throw new IOException("Nepodarilo sa vytvoriť dočasný priečinok modelu.");
         callback.onProgress(-1, 0, 0);
         try (InputStream fileIn = new BufferedInputStream(new FileInputStream(archive));
-             BZip2CompressorInputStream bz = new BZip2CompressorInputStream(fileIn, 64 * 1024);
+             BZip2CompressorInputStream bz = new BZip2CompressorInputStream(fileIn, true);
              TarArchiveInputStream tar = new TarArchiveInputStream(bz)) {
             TarArchiveEntry entry;
             while ((entry = tar.getNextTarEntry()) != null) {
