@@ -29,7 +29,7 @@ public class ArchiveActivity extends Activity {
     private void load(){
         list.removeAllViews();
         File dir=RecordingService.getMeetingsDir(this);
-        File[] files=dir.listFiles((d,n)->n.toLowerCase(Locale.ROOT).endsWith(".m4a"));
+        File[] files=dir.listFiles((d,n)->n.toLowerCase(Locale.ROOT).endsWith(".wav"));
         if(files==null||files.length==0){empty.setVisibility(View.VISIBLE);return;}
         empty.setVisibility(View.GONE);
         Arrays.sort(files,(a,b)->Long.compare(b.lastModified(),a.lastModified()));
@@ -55,7 +55,7 @@ public class ArchiveActivity extends Activity {
         View sep=new View(this); sep.setBackgroundColor(0xFFE0E0E0); list.addView(sep,new LinearLayout.LayoutParams(-1,1));
     }
 
-    private String displayName(File f){return f.getName().replaceFirst("\\.m4a$","").replace('_',' ');}
+    private String displayName(File f){return f.getName().replaceFirst("\\.wav$","").replace('_',' ');}
     private String formatDate(long t){return new SimpleDateFormat("dd.MM.yyyy HH:mm",Locale.getDefault()).format(new Date(t));}
     private String formatSize(long bytes){return String.format(Locale.getDefault(),"%.1f MB",bytes/1024d/1024d);}
 
@@ -68,7 +68,7 @@ public class ArchiveActivity extends Activity {
     }
 
     private void share(File f){
-        Intent s=new Intent(Intent.ACTION_SEND); s.setType("audio/mp4");
+        Intent s=new Intent(Intent.ACTION_SEND); s.setType("audio/wav");
         android.net.Uri uri=androidx.core.content.FileProvider.getUriForFile(this,getPackageName()+".provider",f);
         s.putExtra(Intent.EXTRA_STREAM,uri); s.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(s,"Zdieľať nahrávku"));

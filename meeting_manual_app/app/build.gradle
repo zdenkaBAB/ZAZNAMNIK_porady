@@ -1,8 +1,25 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
-android { namespace 'sk.meetingmanual.app'; compileSdk 35
-    def enableWhisper = project.hasProperty('ENABLE_WHISPER') && project.property('ENABLE_WHISPER') == 'true'
-    dependencies { implementation 'androidx.core:core:1.15.0' }
+android {
+    namespace 'sk.meetingmanual.app'
+    compileSdk 35
 
-defaultConfig { applicationId 'sk.meetingmanual.app'; minSdk 26; targetSdk 35; versionCode 4; versionName '0.4.0' }
+    defaultConfig {
+        applicationId 'sk.meetingmanual.app'
+        minSdk 26
+        targetSdk 35
+        versionCode 6
+        versionName '0.6.0'
+        ndk { abiFilters 'arm64-v8a' }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.15.0'
+    implementation 'com.google.mlkit:translate:17.0.3'
+    implementation 'dev.ffmpegkit-maintained:whisper-android:1.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
 }

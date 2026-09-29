@@ -1,33 +1,29 @@
-# Meeting Manual – Android prototype
+# Meeting Manual v0.6
 
-Aplikácia je určená na pracovné porady, kde potrebuješ z niekoľkohodinovej nahrávky vytvoriť použiteľný pracovný manuál.
+Android meeting recorder for long work meetings. Audio is stored locally and can be transcribed on-device with whisper.cpp.
 
 ## Workflow
-1. Zadaj názov stretnutia.
-2. Stlač **ZAČAŤ NAHRÁVANIE**.
-3. Nahrávka sa ukladá lokálne do telefónu ako M4A a pokračuje aj pri zhasnutí displeja.
-4. Po porade stlač **UKONČIŤ**.
-5. **Vytvoriť prepis** – cieľová verzia používa lokálny whisper.cpp.
-6. **Vytvoriť manuál** – automaticky vytvorí sekcie Hlavné úlohy, Termíny, Zodpovednosti, Postupy, Otvorené otázky a Kompletný prepis.
-7. **Exportovať Word** – vytvorí DOCX, ktorý môžeš poslať kolegom.
+1. Start recording.
+2. Lock the phone if needed; the foreground service continues recording.
+3. Pause/resume or stop from the app or recording notification.
+4. Open **Prepis / preložiť**.
+5. On first use, download the multilingual Whisper base model (~142 MB). This downloads only the model; meeting audio stays on the device.
+6. Whisper produces a timestamped transcript locally.
+7. If the requested output language differs, ML Kit translates the transcript locally after its translation model is downloaded.
+8. Create the structured work manual and export it to Word.
 
-## Lokálny Whisper
-Projekt je pripravený na integráciu whisper.cpp. Oficiálny Android projekt whisper.cpp používa natívny CMake/JNI build a model v `assets/models`; oficiálne README odporúča pre Android `tiny` alebo `base` model. Pozri: https://github.com/ggml-org/whisper.cpp/tree/master/examples/whisper.android
+## Local Whisper
+The app uses `dev.ffmpegkit-maintained:whisper-android:1.0.0`, a prebuilt Android AAR bundling whisper.cpp. The library supports file-based WAV/MP3/FLAC transcription and multilingual Whisper models.
 
-Pre produkčnú verziu treba pribaliť whisper.cpp Android native library a model (napr. slovenský viacjazyčný `tiny` alebo `base`). Model je veľký súbor, preto nie je súčasťou tohto ZIP prototypu. Aplikácia má zatiaľ offline fallback, aby sa dala nainštalovať a otestovať UI/nahrávanie/export bez modelu.
+The default model is `ggml-base.bin` (~142 MB). It is stored in the app's private external files directory after download and is reused for later meetings.
 
-## Bezpečnosť
-Aplikácia neposiela nahrávku na server. Pred pracovným použitím treba overiť interné pravidlá organizácie a právny základ nahrávania účastníkov stretnutia.
+## Recording format
+Recordings are 16 kHz, mono, 16-bit PCM WAV. This makes them directly consumable by the local Whisper engine and avoids cloud conversion.
 
-## Aktuálna verzia prototypu
-- dlhé lokálne nahrávanie
-- uloženie poslednej nahrávky
-- pracovný manuál z textu s logickými sekciami
-- export DOCX cez systémové zdieľanie
-- pripravený setup pre whisper.cpp
+## Privacy
+- No meeting audio is sent to a server by this app.
+- The only network operation is downloading the Whisper model and, when needed, ML Kit's language model.
+- Audio remains in the app's local meeting archive unless the user explicitly shares it.
 
-### Testovací scenár pre tvoju poradu k voľbám
-Názov stretnutia napr.: `Pokyny k voľbám – hlavné úlohy`.
-Po skončení: **Prepis → Pracovný manuál → skontrolovať → Exportovať Word**.
-
-> Poznámka: aktuálny ZIP obsahuje offline fallback a pripravenú Whisper integráciu; samotný veľký Whisper model nie je pribalený. Po pridaní modelu bude možné prejsť na skutočný lokálny prepis.
+## Android build
+The repository is configured for Android API 35 and `arm64-v8a` devices.
