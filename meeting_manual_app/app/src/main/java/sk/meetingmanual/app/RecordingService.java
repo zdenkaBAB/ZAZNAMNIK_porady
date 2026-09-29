@@ -56,7 +56,7 @@ public class RecordingService extends Service {
             out=new File(dir,safeTitle+"_"+stamp+".wav");
             int min=AudioRecord.getMinBufferSize(SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT);
             int buffer=Math.max(min*2, SAMPLE_RATE/2);
-            recorder=new AudioRecord(MediaRecorder.AudioSource.MIC,SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,buffer);
+            recorder=new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION,SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,buffer);
             output=new FileOutputStream(out);
             writeWavHeader(output,0);
             audioBytes=0;
