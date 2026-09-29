@@ -1,7 +1,7 @@
-# Meeting Manual v0.8.0
+# Meeting Manual v0.9.0
 
-- Improved Android audio capture: VOICE_RECOGNITION audio source for speech-focused capture.
-- Keeps local Whisper transcription and Small Q5 model from v0.7.x.
-- Explicit Slovak/English language selection remains enabled.
-
-Note: the current free whisper-android 1.0.0 API exposes the high-level WhisperConfig(language=...) used by this app; advanced beam-search/VAD options are not exposed by that AAR API, so v0.8 does not pretend to enable unsupported options.
+- Replaced local Whisper transcription with sherpa-onnx + NVIDIA Parakeet TDT v3 INT8.
+- Parakeet TDT v3 supports 25 European languages, including Slovak.
+- Model is downloaded from the official sherpa-onnx GitHub release and extracted locally.
+- Audio remains on the phone; the app does not upload recordings for transcription.
+- Long WAV files are processed in 60-second chunks to limit RAM usage.

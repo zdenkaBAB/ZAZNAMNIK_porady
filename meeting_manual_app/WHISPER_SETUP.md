@@ -1,31 +1,10 @@
-# Lokálny Whisper – setup
+# Local ASR model setup
 
-Oficiálny whisper.cpp má Android projekt s JNI/CMake integráciou. Tento projekt je pripravený tak, aby sa Whisper zapol ako voliteľná natívna vrstva.
+The app now uses sherpa-onnx + NVIDIA Parakeet TDT v3 INT8 instead of Whisper.
 
-## 1. Zdrojový kód
+The model is downloaded from the sherpa-onnx GitHub release, not Hugging Face:
+https://github.com/k2-fsa/sherpa-onnx/releases/tag/asr-models
 
-```bash
-./scripts/setup-whisper.sh
-```
+Model package: `sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8` (~640 MB extracted).
 
-## 2. Model
-
-Použi viacjazyčný model, nie `*.en`, pretože stretnutia budú v slovenčine. Pre prvý test odporúčam `tiny`; pri lepšom telefóne môžeš skúsiť `base`.
-
-Model umiestni do:
-
-`app/src/main/assets/models/`
-
-Napr.:
-
-`ggml-tiny.bin`
-
-Oficiálne whisper.cpp uvádza pre Android ako vhodné prvé modely `tiny` alebo `base`.
-
-## 3. Prečo model nie je v ZIP-e
-
-Model je veľký binárny súbor. Nechávame ho mimo GitHub repozitára a používateľ si ho pridá samostatne. Po jeho pridaní môže byť prepis úplne lokálny a bez odosielania zvuku na server.
-
-## 4. Dôležité pre niekoľkohodinové porady
-
-Finálna verzia nebude posielať celé 3-hodinové audio naraz do Whisperu. Nahrávku rozdelí na menšie segmenty, napr. 30–60 sekúnd, každý segment prepíše a výsledky spojí s časovými značkami. To znižuje RAM nároky a umožňuje pokračovať aj pri dlhých poradách.
+It supports 25 European languages, including Slovak (`sk`).

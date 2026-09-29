@@ -120,28 +120,28 @@ public class MainActivity extends Activity {
         int outputPos=outputLanguage.getSelectedItemPosition();
         String targetCode=outputPos==0?"sk":outputPos==1?"en":sourceCode;
         String targetName=outputPos==0?"Slovenčina":outputPos==1?"English":"Pôvodný jazyk";
-        status.setText("Pripravujem lokálny Whisper („"+sourceName+" → "+targetName+")…");
-        ensureWhisperModelAndTranscribe(lastAudio, sourceCode, targetCode, targetName);
+        status.setText("Pripravujem lokálny Parakeet („"+sourceName+" → "+targetName+")…");
+        ensureParakeetModelAndTranscribe(lastAudio, sourceCode, targetCode, targetName);
     }
 
-    private void ensureWhisperModelAndTranscribe(File audio, String sourceCode, String targetCode, String targetName){
+    private void ensureParakeetModelAndTranscribe(File audio, String sourceCode, String targetCode, String targetName){
         if(ModelDownloader.isInstalled(this)){
-            runWhisper(audio, sourceCode, targetCode, targetName);
+            runParakeet(audio, sourceCode, targetCode, targetName);
             return;
         }
-        status.setText("Prvýkrát sa sťahuje Whisper base model (~142 MB). Audio sa pritom nikam neposiela.");
+        status.setText("Prvýkrát sa sťahuje bezplatný Parakeet model (~640 MB). Audio sa pritom nikam neposiela.");
         ModelDownloader.download(this, new ModelDownloader.Callback(){
             public void onProgress(int percent,long downloaded,long total){
-                if(percent>=0) status.setText("Sťahujem lokálny Whisper model: "+percent+" %");
-                else status.setText("Sťahujem lokálny Whisper model… "+(downloaded/1024/1024)+" MB");
+                if(percent>=0) status.setText("Sťahujem lokálny Parakeet model: "+percent+" %");
+                else status.setText("Sťahujem lokálny Parakeet model… "+(downloaded/1024/1024)+" MB");
             }
-            public void onSuccess(File file){ status.setText("Whisper model je pripravený. Spúšťam lokálny prepis…"); runWhisper(audio,sourceCode,targetCode,targetName); }
-            public void onError(String error){ transcribe.setEnabled(true); status.setText("Whisper model sa nepodarilo stiahnuť: "+error); }
+            public void onSuccess(File file){ status.setText("Parakeet model je pripravený. Spúšťam lokálny prepis…"); runParakeet(audio,sourceCode,targetCode,targetName); }
+            public void onError(String error){ transcribe.setEnabled(true); status.setText("Parakeet model sa nepodarilo stiahnuť: "+error); }
         });
     }
 
-    private void runWhisper(File audio, String sourceCode, String targetCode, String targetName){
-        WhisperTranscriber.transcribe(this, audio, ModelDownloader.modelFile(this), sourceCode, new WhisperTranscriber.Callback(){
+    private void runParakeet(File audio, String sourceCode, String targetCode, String targetName){
+        SherpaTranscriber.transcribe(this, audio, ModelDownloader.modelDir(this), sourceCode, new SherpaTranscriber.Callback(){
             public void onStatus(String message){ status.setText(message); }
             public void onSuccess(String result){
                 text.setLength(0); text.append(result); transcript.setText(result);
@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
                     translateTranscriptOnDevice(sourceCode,targetCode,()->finishTranscription(targetName));
                 } else finishTranscription(targetName);
             }
-            public void onError(String error){ transcribe.setEnabled(true); status.setText("Whisper prepis sa nepodaril: "+error); }
+            public void onError(String error){ transcribe.setEnabled(true); status.setText("Parakeet prepis sa nepodaril: "+error); }
         });
     }
 
@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
         manual.setEnabled(true); status.setText("Prepis dokončený lokálne. Výstup: "+targetName+". Skontroluj text a vytvor manuál.");
     }
 
-    /** Translate a real Whisper transcript on-device when source and target differ. */
+    /** Translate a real Parakeet transcript on-device when source and target differ. */
     void translateTranscriptOnDevice(String sourceCode, String targetCode, Runnable onDone) {
         if (text.length() == 0 || sourceCode.equals(targetCode)) { onDone.run(); return; }
         TranslatorOptions options = new TranslatorOptions.Builder()

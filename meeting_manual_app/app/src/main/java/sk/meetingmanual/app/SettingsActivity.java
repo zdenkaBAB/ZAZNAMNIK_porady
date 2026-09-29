@@ -8,7 +8,7 @@ import android.provider.Settings;
 import android.widget.*;
 
 public class SettingsActivity extends Activity {
-    private TextView batteryStatus, whisperStatus;
+    private TextView batteryStatus, parakeetStatus;
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.activity_settings);
@@ -19,10 +19,10 @@ public class SettingsActivity extends Activity {
         findViewById(R.id.settingsBack).setOnClickListener(v->finish());
         findViewById(R.id.batteryOptimization).setOnClickListener(v->requestBatteryUnrestricted());
         batteryStatus=findViewById(R.id.batteryStatus);
-        whisperStatus=findViewById(R.id.whisperStatus);
-        findViewById(R.id.whisperDownload).setOnClickListener(v -> downloadWhisper());
+        parakeetStatus=findViewById(R.id.parakeetStatus);
+        findViewById(R.id.parakeetDownload).setOnClickListener(v -> downloadParakeet());
         updateBatteryStatus();
-        updateWhisperStatus();
+        updateParakeetStatus();
         ((TextView)findViewById(R.id.storageInfo)).setText("Nahrávky sa ukladajú lokálne do priečinka aplikácie.\n\nAplikácia neposiela audio automaticky na internet.\n\nPre niekoľkohodinové nahrávanie odporúčame povoliť pre aplikáciu neobmedzené používanie batérie.");
     }
     private boolean isIgnoringBattery(){
@@ -33,16 +33,16 @@ public class SettingsActivity extends Activity {
     private void updateBatteryStatus(){
         batteryStatus.setText(isIgnoringBattery()?"✅ Batéria: bez obmedzení – nahrávanie na pozadí má povolenie.":"⚠️ Batéria: môže byť optimalizovaná – pri dlhom nahrávaní odporúčame povoliť bez obmedzení.");
     }
-    private void updateWhisperStatus(){
-        if(whisperStatus!=null) whisperStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Whisper Small Q5 model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 182 MB. Sťahovanie sa pri prerušení pokúsi pokračovať.");
+    private void updateParakeetStatus(){
+        if(parakeetStatus!=null) parakeetStatus.setText(ModelDownloader.isInstalled(this) ? "✅ Parakeet TDT v3 model je pripravený. Prepis prebieha lokálne." : "⚠️ Model ešte nie je v telefóne. Pri prvom stlačení sa stiahne približne 640 MB z GitHubu. Sťahovanie sa pri prerušení pokúsi pokračovať.");
     }
-    private void downloadWhisper(){
-        if(ModelDownloader.isInstalled(this)){ Toast.makeText(this,"Whisper model už je pripravený.",Toast.LENGTH_SHORT).show(); return; }
-        whisperStatus.setText("Sťahujem Whisper Small Q5 model…");
+    private void downloadParakeet(){
+        if(ModelDownloader.isInstalled(this)){ Toast.makeText(this,"Parakeet model už je pripravený.",Toast.LENGTH_SHORT).show(); return; }
+        parakeetStatus.setText("Sťahujem Parakeet TDT v3 model…");
         ModelDownloader.download(this,new ModelDownloader.Callback(){
-            public void onProgress(int p,long d,long t){ whisperStatus.setText(p>=0?"Sťahujem Whisper Small Q5 model: "+p+" %":"Sťahujem Whisper Small Q5 model…"); }
-            public void onSuccess(java.io.File f){ updateWhisperStatus(); Toast.makeText(SettingsActivity.this,"Whisper Small Q5 model je pripravený.",Toast.LENGTH_LONG).show(); }
-            public void onError(String e){ whisperStatus.setText("Sťahovanie zlyhalo: "+e); }
+            public void onProgress(int p,long d,long t){ parakeetStatus.setText(p>=0?"Sťahujem Parakeet TDT v3 model: "+p+" %":"Sťahujem Parakeet TDT v3 model…"); }
+            public void onSuccess(java.io.File f){ updateParakeetStatus(); Toast.makeText(SettingsActivity.this,"Parakeet TDT v3 model je pripravený.",Toast.LENGTH_LONG).show(); }
+            public void onError(String e){ parakeetStatus.setText("Sťahovanie zlyhalo: "+e); }
         });
     }
     private void requestBatteryUnrestricted(){
@@ -57,5 +57,5 @@ public class SettingsActivity extends Activity {
         }
     }
     @Override protected void onResume(){ super.onResume(); if(batteryStatus!=null) updateBatteryStatus();
-        if(whisperStatus!=null) updateWhisperStatus(); }
+        if(parakeetStatus!=null) updateParakeetStatus(); }
 }
