@@ -4,5 +4,5 @@ android { namespace 'sk.meetingmanual.app'; compileSdk 35
     def enableWhisper = project.hasProperty('ENABLE_WHISPER') && project.property('ENABLE_WHISPER') == 'true'
     dependencies { implementation 'androidx.core:core:1.15.0' }
 
-defaultConfig { applicationId 'sk.meetingmanual.app'; minSdk 26; targetSdk 35; versionCode 1; versionName '0.1.0' }
+defaultConfig { applicationId 'sk.meetingmanual.app'; minSdk 26; targetSdk 35; versionCode 4; versionName '0.4.0' }
 }
