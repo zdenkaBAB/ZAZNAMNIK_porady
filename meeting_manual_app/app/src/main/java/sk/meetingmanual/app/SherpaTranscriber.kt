@@ -85,8 +85,7 @@ object SherpaTranscriber {
                     samples[frame] = sum / info.channels
                 }
                 val stream = recognizer.createStream()
-                if (language.isNotBlank()) stream.setOption("language", language)
-                stream.acceptWaveform(info.sampleRate, samples)
+                stream.acceptWaveform(samples, info.sampleRate)
                 recognizer.decode(stream)
                 val r = recognizer.getResult(stream)
                 val chunkText = r.text.trim()

@@ -1,4 +1,4 @@
-# Meeting Manual v0.9.0
+# Meeting Manual v0.9.1
 
 - Replaced local Whisper transcription with sherpa-onnx + NVIDIA Parakeet TDT v3 INT8.
 - Parakeet TDT v3 supports 25 European languages, including Slovak.
