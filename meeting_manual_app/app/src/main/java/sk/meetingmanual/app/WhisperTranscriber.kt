@@ -21,6 +21,7 @@ object WhisperTranscriber {
         fun onError(error: String)
     }
 
+    @JvmStatic
     fun transcribe(context: Context, audio: File, model: File, language: String, callback: Callback) {
         scope.launch {
             var loaded: WhisperModel? = null
