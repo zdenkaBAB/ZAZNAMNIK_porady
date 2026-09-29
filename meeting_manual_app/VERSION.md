@@ -1,7 +1,4 @@
-# Meeting Manual v0.4.0
+# Meeting Manual v0.4.1
 
-- nahrávanie pokračuje po uzamknutí obrazovky cez Android foreground microphone service
-- notifikačné tlačidlá Pozastaviť/Pokračovať/Ukončiť
-- nastavenie neobmedzenej batérie pre dlhé nahrávanie
-- voliteľné ponechanie obrazovky zapnutej
-- lokálny archív nahrávok a nastavenia
+- Added custom microphone + transcription pen launcher icon.
+- Added launcher icon resources for Android densities.
