@@ -35,7 +35,7 @@ public final class ModelDownloader {
             File target = modelFile(c);
             File temp = new File(target.getParentFile(), MODEL_NAME + ".part");
             Handler main = new Handler(Looper.getMainLooper());
-            Exception last = null;
+            Exception lastError = null;
 
             for (int attempt = 1; attempt <= 5; attempt++) {
                 HttpURLConnection conn = null;
@@ -97,7 +97,7 @@ public final class ModelDownloader {
                     main.post(() -> callback.onSuccess(ready));
                     return;
                 } catch (Exception e) {
-                    last = e;
+                    lastError = e;
                     final int a = attempt;
                     final String msg = e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage();
                     main.post(() -> callback.onProgress(-1, 0, 0));
@@ -107,7 +107,7 @@ public final class ModelDownloader {
                 }
             }
 
-            String msg = last == null || last.getMessage() == null ? "Sťahovanie zlyhalo." : last.getMessage();
+            String msg = lastError == null || lastError.getMessage() == null ? "Sťahovanie zlyhalo." : lastError.getMessage();
             main.post(() -> callback.onError(msg + " Skús to ešte raz; sťahovanie sa dá obnoviť."));
         }, "WhisperModelDownload").start();
     }
